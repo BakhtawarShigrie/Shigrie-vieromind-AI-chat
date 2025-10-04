@@ -207,7 +207,7 @@ function App() {
         <p className="mb-1">
           © {new Date().getFullYear()} All rights reserved by
           <a
-            href="https://www.linkedin.com/in/rudra-malvankar/"
+            href="https://www.instagram.com/shigrie/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline ml-1"
@@ -222,3 +222,4 @@ function App() {
 }
 
 export default App;
+
