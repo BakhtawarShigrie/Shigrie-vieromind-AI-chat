@@ -29,7 +29,7 @@
 }
 
 .chat-container {
-  max-width: 600px; /* Adjust based on design */
-  width: 90%; /* Ensures responsiveness */
+  max-width: 600px; 
+  width: 90%; 
   margin: auto;
 }
