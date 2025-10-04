@@ -4,11 +4,9 @@ import { Send, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { ChatMessage } from "./components/ChatMessage";
 import logo from "./assets/logo.png"; // 🔹 Import logo
 
-// 🟢 System prompt
 const SYSTEM_PROMPT =
   "You are a supportive and kind AI therapy assistant. Respond empathetically, ask thoughtful follow-up questions, and provide a safe space for reflection.";
 
-// 🟢 Types
 type Message = {
   role: "system" | "user" | "assistant";
   content: string;
@@ -20,10 +18,9 @@ type ChatState = {
   error: string | null;
 };
 
-// 🟢 Initialize OpenAI client
 const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY, // from .env
-  dangerouslyAllowBrowser: true, // ⚠️ only for demos, better to proxy in production
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY, 
+  dangerouslyAllowBrowser: true, 
 });
 
 function App() {
@@ -44,7 +41,6 @@ function App() {
     scrollToBottom();
   }, [chatState.messages]);
 
-  // 🟢 Speech synthesis
   const speak = (text: string) => {
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(text);
@@ -64,7 +60,6 @@ function App() {
     }
   };
 
-  // 🟢 Handle sending message
   const handleSubmit = async (text: string) => {
     if (!text.trim()) return;
 
@@ -79,9 +74,8 @@ function App() {
     setInput("");
 
     try {
-      // ✅ Send full conversation to API
       const completion = await openai.chat.completions.create({
-        model: "gpt-4.1-mini", // Free lightweight version
+        model: "gpt-4.1-mini", 
         messages: updatedMessages,
       });
 
@@ -114,9 +108,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-200 via-blue-90 to-cyan-100 flex flex-col">
       <div className="w-full max-w-xl lg:max-w-3xl xl:max-w-4xl mx-auto p-4 flex-1 flex flex-col min-h-screen">
-        {/* Header */}
         <header className="text-center py-4">
-          {/* 🔹 Logo on top */}
           <div className="flex justify-center mb-3">
             <img
               src={logo}
@@ -136,7 +128,6 @@ function App() {
           </p>
         </header>
 
-        {/* Chat Messages */}
         <div className="flex-1 overflow-y-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-4 mb-4 max-h-[65vh]">
           {chatState.messages.filter((msg) => msg.role !== "system").length ===
             0 && (
@@ -157,10 +148,8 @@ function App() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Box */}
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-3">
           <div className="flex items-center gap-2 w-full">
-            {/* Voice Toggle */}
             <button
               onClick={
                 isSpeaking
@@ -180,7 +169,6 @@ function App() {
               {isSpeaking ? <VolumeX size={20} /> : <Volume2 size={20} />}
             </button>
 
-            {/* Input */}
             <input
               type="text"
               value={input}
@@ -190,7 +178,6 @@ function App() {
               className="flex-1 p-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white/50 backdrop-blur-sm transition-all duration-300"
             />
 
-            {/* Send */}
             <button
               onClick={() => handleSubmit(input)}
               disabled={!input.trim()}
@@ -202,7 +189,6 @@ function App() {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="text-center py-2 text-sm text-gray-500">
         <p className="mb-1">
           © {new Date().getFullYear()} All rights reserved by
@@ -222,4 +208,5 @@ function App() {
 }
 
 export default App;
+
 
